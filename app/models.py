@@ -46,7 +46,7 @@ class Photo(Base):
     __tablename__ = "photos"
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    drive_file_id: Mapped[str] = mapped_column(String, unique=True, nullable=False, index=True)
+    drive_file_id: Mapped[str] = mapped_column(String, nullable=False)
     drive_url: Mapped[str] = mapped_column(String, nullable=False)
     day_name: Mapped[str] = mapped_column(String, nullable=False)
     face_embedding: Mapped[list[float]] = mapped_column(ARRAY(Float), nullable=False)
@@ -54,6 +54,7 @@ class Photo(Base):
     
     # Indexes
     __table_args__ = (
+        Index("ix_photos_drive_file_id", "drive_file_id"),
         Index("ix_photos_day_name", "day_name"),
         Index("ix_photos_indexed_at", "indexed_at"),
     )

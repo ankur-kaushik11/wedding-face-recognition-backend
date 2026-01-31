@@ -48,11 +48,11 @@ def upgrade() -> None:
         sa.Column('day_name', sa.String(), nullable=False),
         sa.Column('face_embedding', postgresql.ARRAY(sa.Float()), nullable=False),
         sa.Column('indexed_at', sa.DateTime(timezone=True), nullable=False),
-        sa.PrimaryKeyConstraint('id'),
-        sa.UniqueConstraint('drive_file_id')
+        sa.PrimaryKeyConstraint('id')
     )
     
     # Create indexes for photos
+    # Note: drive_file_id is indexed for performance
     op.create_index('ix_photos_drive_file_id', 'photos', ['drive_file_id'])
     op.create_index('ix_photos_day_name', 'photos', ['day_name'])
     op.create_index('ix_photos_indexed_at', 'photos', ['indexed_at'])
