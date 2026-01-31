@@ -144,9 +144,6 @@ class FaceRecognitionEngine:
                             continue
                     else:
                         # Delete existing entries if force reindex
-                        await db.execute(
-                            select(Photo).where(Photo.drive_file_id == photo_id)
-                        )
                         result = await db.execute(
                             select(Photo).where(Photo.drive_file_id == photo_id)
                         )
